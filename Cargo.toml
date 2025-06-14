@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "A tool to monitor smart wallets on the Solana blockchain for early token opportunities"
 authors = ["Your Name"]
+rayon = "1.7"
 
 [dependencies]
 anyhow = "1.0"
@@ -20,8 +21,17 @@ env = "1.0.1"
 bs58 = "0.5"
 futures = "0.3.31"
 num_cpus = "1.17.0"
-
+mimalloc = "0.1.46"
+object-pool = "0.6.0"
+rayon-core = "1.12.1"
+jemallocator = "0.5.4"
 
 [profile.release]
 opt-level = 3
-lto = true
+lto = "fat"           # 链接时优化，适合M系列Mac
+codegen-units = 1     # 单编译单元，更好的优化
+panic = "abort"       # 减少二进制大小
+overflow-checks = false  # 发布版本关闭溢出检查
+
+[profile.release.package."*"]
+opt-level = 3

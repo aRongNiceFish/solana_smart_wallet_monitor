@@ -60,6 +60,6 @@ async fn main() -> Result<()> {
             error!("monitor_and_copy_trade 出错: {}", e);
         }
         // 每 10 秒运行一次，避免过载 RPC 节点
-        tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
     }
 }
